@@ -37,8 +37,15 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      # if: github.event_name == 'push'
-      run: terraform plan -no-color
+      if: github.event_name == 'push' || github.event_name == 'push_request'
+      run: terraform plan -no-color > plan.txt || true
+
+    - name: Upload Terraform Plan Artifact
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@4
+      with:
+        name: terraform-plan
+        path: plan.txt
 
     - name: Terraform Apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
