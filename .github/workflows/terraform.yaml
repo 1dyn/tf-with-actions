@@ -42,7 +42,7 @@ jobs:
 
     - name: Upload Terraform Plan Artifact
       if: github.event_name == 'pull_request'
-      uses: actions/upload-artifact@4
+      uses: actions/upload-artifact@3
       with:
         name: terraform-plan
         path: plan.txt
