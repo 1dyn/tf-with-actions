@@ -1,9 +1,9 @@
 name: Terraform CI/CD
 
 on:
-  # pull_request:
-  #   branches:
-  #     - main
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - infra
@@ -42,7 +42,7 @@ jobs:
 
     - name: Upload Terraform Plan Artifact
       if: github.event_name == 'pull_request'
-      uses: actions/upload-artifact@3
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: terraform-plan
         path: plan.txt
